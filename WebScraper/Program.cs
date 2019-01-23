@@ -88,11 +88,14 @@ namespace WebScraper
 
 
 
-
-
-
-
-
+                // TODO: ****Next steps****
+                // Create a stock object that will be sent to database
+                // Rewrite function to access stock data
+                // Manipulate stock objects somehow (by printing or whatever)
+                // Create database connection
+                // Break up code into methods
+                // Add explicit waits for all calls
+                // Add pop-up dodger
 
 
 
