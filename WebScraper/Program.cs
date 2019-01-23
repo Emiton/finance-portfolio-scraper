@@ -66,8 +66,42 @@ namespace WebScraper
                     Console.WriteLine(ex.Message);
                 }
 
-            }
+                // Navigate to Portfolio
+                webDriver.FindElement(By.XPath("//*[@id=\"Nav-0-DesktopNav\"]/div/div[3]/div/div[1]/ul/li[2]/a")).Click();
+                webDriver.FindElement(By.XPath("//*[@id=\"Col1-0-Portfolios-Proxy\"]/main/table/tbody/tr[1]/td[1]/a")).Click();
 
+                webDriver.Manage().Window.Maximize();
+                Console.WriteLine("READY TO EXTRACT DATA");
+
+
+                // Grab info
+                var stocks = webDriver.FindElements(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody"));
+                foreach (var stock in stocks)
+                    Console.WriteLine(stock.Text);
+
+
+                // Test click
+                webDriver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[1]/td[1]/a")).Click();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                // Might need this a popup handler
+                //var alert = webDriver.FindElement(By.XPath("//dialog[@id = '__dialog']/section/button"));
+                //alert.Click();
+
+            }
 
 
         }
