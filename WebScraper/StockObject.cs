@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace WebScraper
 {
+    /// <summary>
+    ///     This class will hold all of the data for a given stock
+    /// </summary>
     public class StockObject
     {
         public string Symbol { get; set; }
