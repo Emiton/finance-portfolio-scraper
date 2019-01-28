@@ -20,5 +20,7 @@ namespace WebScraper
         // Average volume over the last 3 months
         public string AverageVolume3M { get; set; }
         public string MarketCap { get; set; }
+        // Time at which the stock was scraped
+        public DateTime ScrapeTime { get; set; }
     }
 }
