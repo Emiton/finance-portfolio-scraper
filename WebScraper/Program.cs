@@ -25,46 +25,42 @@ namespace WebScraper
                 webDriver.Navigate().GoToUrl("https://finance.yahoo.com");
 
                 //webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-                //webDriver.FindElement(By.Id("uh-signedin")).Click();
 
-                try
-                {
-                    webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-                    webDriver.FindElement(By.Id("uh-signedin")).Click();
-                }
-                catch (OpenQA.Selenium.NoSuchElementException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    // throw new OpenQA.Selenium.NoSuchElementException("ID not found");
-                }
+                webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+                webDriver.FindElement(By.Id("uh-signedin")).Click();
 
 
-                try
-                {
-                    webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-                    IWebElement email = webDriver.FindElement(By.Id("login-username"));
-                    email.SendKeys("financetester321@gmail.com");
-                    webDriver.FindElement(By.XPath("//*[@id=\"login-signin\"]")).Click();
-                    Console.WriteLine("GOT THE EMAIL BABAYYYY!");
-                }
-                catch (OpenQA.Selenium.NoSuchElementException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+                IWebElement email = webDriver.FindElement(By.Id("login-username"));
+                email.SendKeys("financetester321@gmail.com");
+                webDriver.FindElement(By.XPath("//*[@id=\"login-signin\"]")).Click();
+                Console.WriteLine("GOT THE EMAIL BABAYYYY!");
 
 
-                try
-                {
-                    webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-                    IWebElement password = webDriver.FindElement(By.Id("login-passwd"));
-                    password.SendKeys("thisisnew1234");
-                    webDriver.FindElement(By.Id("login-signin")).Click();
-                    Console.WriteLine("WE LOGGED IN!");
-                }
-                catch (OpenQA.Selenium.NoSuchElementException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+                IWebElement password = webDriver.FindElement(By.Id("login-passwd"));
+                password.SendKeys("thisisnew1234");
+                webDriver.FindElement(By.Id("login-signin")).Click();
+                Console.WriteLine("WE LOGGED IN!");
+
+                // pop-up section x-path
+                //*[@id="__dialog"]/section
+
+                // pop-up close button x-path
+                //*[@id="__dialog"]/section/button
+
+                //try
+                //{
+                //    // Possible pop-up occurs here
+                //    IAlert simpleAlert = webDriver.SwitchTo().Alert();
+                //    webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+                //    simpleAlert.Dismiss();
+                //}
+                //catch (Exception e)
+                //{
+                //    Console.WriteLine("No pop up found", e);
+                //    throw;
+                //}
 
                 // Navigate to Portfolio
                 webDriver.FindElement(By.XPath("//*[@id=\"Nav-0-DesktopNav\"]/div/div[3]/div/div[1]/ul/li[2]/a")).Click();
@@ -85,9 +81,6 @@ namespace WebScraper
 
 
 
-
-
-
                 // TODO: ****Next steps****
                 // Create a stock object that will be sent to database
                 // Rewrite function to access stock data
@@ -96,8 +89,6 @@ namespace WebScraper
                 // Break up code into methods
                 // Add explicit waits for all calls
                 // Add pop-up dodger
-
-
 
 
                 // Might need this a popup handler
