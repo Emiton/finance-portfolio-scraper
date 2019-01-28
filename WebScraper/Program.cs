@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 
 namespace WebScraper
 {
@@ -17,62 +18,50 @@ namespace WebScraper
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Console.WriteLine("*****STARTING*****");
-
             // Create instance of web scraper
             using (IWebDriver webDriver = new ChromeDriver())
             {
                 webDriver.Navigate().GoToUrl("https://finance.yahoo.com");
 
-                //webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+                // define an explicit wait
+                WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
 
-                webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+                wait.Until<IWebElement>(d => d.FindElement(By.Id("uh-signedin")));
                 webDriver.FindElement(By.Id("uh-signedin")).Click();
 
+                // Sign in using email and password
 
-                webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+                wait.Until<IWebElement>(d => d.FindElement(By.Id("login-username")));
                 IWebElement email = webDriver.FindElement(By.Id("login-username"));
                 email.SendKeys("financetester321@gmail.com");
                 webDriver.FindElement(By.XPath("//*[@id=\"login-signin\"]")).Click();
-                Console.WriteLine("GOT THE EMAIL BABAYYYY!");
 
-
-                webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+                wait.Until<IWebElement>(d => d.FindElement(By.Id("login-passwd")));
                 IWebElement password = webDriver.FindElement(By.Id("login-passwd"));
                 password.SendKeys("thisisnew1234");
                 webDriver.FindElement(By.Id("login-signin")).Click();
-                Console.WriteLine("WE LOGGED IN!");
 
-                // pop-up section x-path
-                //*[@id="__dialog"]/section
 
-                // pop-up close button x-path
-                //*[@id="__dialog"]/section/button
+                // Deal with potential pop-up
+                webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                IList<IWebElement> popUps =  webDriver.FindElements(By.XPath("//*[@id=\"__dialog\"]/section"));
 
-                //try
-                //{
-                //    // Possible pop-up occurs here
-                //    IAlert simpleAlert = webDriver.SwitchTo().Alert();
-                //    webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
-                //    simpleAlert.Dismiss();
-                //}
-                //catch (Exception e)
-                //{
-                //    Console.WriteLine("No pop up found", e);
-                //    throw;
-                //}
+                if (popUps.Count != 0)
+                {
+                    IWebElement popUp = webDriver.FindElement(By.XPath("//*[@id=\"__dialog\"]/section"));
+                    popUp.Click();
+                }
 
                 // Navigate to Portfolio
                 webDriver.FindElement(By.XPath("//*[@id=\"Nav-0-DesktopNav\"]/div/div[3]/div/div[1]/ul/li[2]/a")).Click();
                 webDriver.FindElement(By.XPath("//*[@id=\"Col1-0-Portfolios-Proxy\"]/main/table/tbody/tr[1]/td[1]/a")).Click();
 
                 webDriver.Manage().Window.Maximize();
-                Console.WriteLine("READY TO EXTRACT DATA");
 
 
                 // Grab info
-                var stocks = webDriver.FindElements(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody"));
-                foreach (var stock in stocks)
+                IList<IWebElement> stockTable = webDriver.FindElements(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody"));
+                foreach (var stock in stockTable)
                     Console.WriteLine(stock.Text);
 
 
