@@ -18,10 +18,16 @@ namespace WebScraper
         /// <param name="args"></param>
         static void Main(string[] args)
         {
+            ChromeOptions options = new ChromeOptions();
+
+
             // Create instance of web scraper
-            using (IWebDriver webDriver = new ChromeDriver())
+            using (IWebDriver webDriver = new ChromeDriver(options))
             {
-                webDriver.Navigate().GoToUrl("https://finance.yahoo.com");
+                // Suppress certificate errors
+               options.AddArgument("--ignore-certificate-errors");
+               options.AddArgument("--ignore-ssl-errors");
+               webDriver.Navigate().GoToUrl("https://finance.yahoo.com");
 
                 // define an explicit wait
                 WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
@@ -48,8 +54,8 @@ namespace WebScraper
 
                 if (popUps.Count != 0)
                 {
-                    IWebElement popUp = webDriver.FindElement(By.XPath("//*[@id=\"__dialog\"]/section"));
-                    popUp.Click();
+                    IWebElement popUpExit = webDriver.FindElement(By.XPath("//*[@id=\"__dialog\"]/section"));
+                    popUpExit.Click();
                 }
 
                 // Navigate to Portfolio
@@ -58,16 +64,34 @@ namespace WebScraper
 
                 webDriver.Manage().Window.Maximize();
 
-
-                // Grab info
-                IList<IWebElement> stockTable = webDriver.FindElements(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody"));
-                foreach (var stock in stockTable)
-                    Console.WriteLine(stock.Text);
+                // TODO : Get rid of this line
+                webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
 
 
-                // Test click
-                webDriver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[1]/td[1]/a")).Click();
+                // Grab all stocks
+                IList<IWebElement> tempTable = webDriver.FindElements(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody")); // cannot find this same Xpath again for some reason
 
+                IWebElement stockTable =
+                    webDriver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody"));
+
+
+
+                Console.WriteLine(stockTable);
+
+
+                foreach (var stock in tempTable)
+                    Console.WriteLine( stock.Text );
+
+
+
+                //var manageStocks = new StockProcesser();
+                //manageStocks.ParseStockTable(stockTable);
+
+                // Next steps 
+                // Loop through each row
+                // Final should use a method that gets row?
+                // For each column use special instructions to extract relevant data
+                // This may require a switch statement in order to accomadate for sepcial case rows
 
 
                 // TODO: ****Next steps****
@@ -76,8 +100,6 @@ namespace WebScraper
                 // Manipulate stock objects somehow (by printing or whatever)
                 // Create database connection
                 // Break up code into methods
-                // Add explicit waits for all calls
-                // Add pop-up dodger
 
 
                 // Might need this a popup handler
@@ -88,6 +110,14 @@ namespace WebScraper
 
 
         }
+
+        //public List<StockObject> ParseStockTable(IList<IWebElement> stocks)
+        //{
+        //    List<StockObject> parsedStocks = new List<StockObject>();
+        //    int numberOfStocks = stocks.Count;
+        //    Console.WriteLine(  numberOfStocks );
+        //    return parsedStocks;
+        //}
 
     }
 }
