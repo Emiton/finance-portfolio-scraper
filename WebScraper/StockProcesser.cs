@@ -20,6 +20,7 @@ namespace WebScraper
         public IWebElement GetStockTable(IWebDriver driver)
         {
             IWebElement stockTable = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody"));
+            return stockTable;
         }
 
         public List<StockObject> ParseStockTable(IList<IWebElement> stocks)
@@ -34,6 +35,8 @@ namespace WebScraper
         // If this is kept, put it in it's own static class
         public void WriteVisibleConsoleMessage(string message)
         {
+            Console.BackgroundColor = ConsoleColor.DarkMagenta;
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             int messageLength = message.Length;
             string symbolBuffer = "$%$%$$%$%$%$%$%$%$%$%$%$%$%$%$%$%";
             Console.WriteLine(symbolBuffer);
@@ -48,11 +51,14 @@ namespace WebScraper
 
             Console.WriteLine( "     " );
             Console.WriteLine(symbolBuffer);
+            Console.ResetColor();
         }
 
         // TODO: Repeated code, refactor in order to be overloaded for ints and strings
         public void WriteVisibleConsoleMessage(int numberToPrint)
         {
+            Console.BackgroundColor = ConsoleColor.DarkMagenta;
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             string symbolBuffer = "$%$%$$%$%$%$%$%$%$%$%$%$%$%$%$%$%";
             Console.WriteLine(symbolBuffer);
             Console.WriteLine("     ");
@@ -61,6 +67,7 @@ namespace WebScraper
 
             Console.WriteLine("     ");
             Console.WriteLine(symbolBuffer);
+            Console.ResetColor();
         }
     }
 }
