@@ -24,6 +24,7 @@ namespace WebScraper
             // Create instance of web scraper
             using (IWebDriver webDriver = new ChromeDriver(options))
             {
+                // TODO: Suppress not working
                 // Suppress certificate errors
                options.AddArgument("--ignore-certificate-errors");
                options.AddArgument("--ignore-ssl-errors");
@@ -32,6 +33,7 @@ namespace WebScraper
                 // define an explicit wait
                 WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
 
+                // SIGN IN PROCESS
                 wait.Until<IWebElement>(d => d.FindElement(By.Id("uh-signedin")));
                 webDriver.FindElement(By.Id("uh-signedin")).Click();
 
@@ -67,21 +69,38 @@ namespace WebScraper
                 // TODO : Get rid of this line
                 webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
 
-
+                // GRABBING STOCKS
                 // Grab all stocks
                 IList<IWebElement> tempTable = webDriver.FindElements(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody")); // cannot find this same Xpath again for some reason
 
                 IWebElement stockTable =
                     webDriver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody"));
 
+                IList<IWebElement> stockList = stockTable.FindElements(By.TagName("tr"));
+
+                int numberOfRows = stockList.Count;
+
+                IWebElement firstRow = webDriver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[1]"));
+
+                // TODO : Get rid of this line
+                webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+                int numberOfColumns = firstRow.FindElements(By.TagName("td")).Count;
+                IList<IWebElement> currentRows = firstRow.FindElements(By.TagName("td"));
 
 
-                Console.WriteLine(stockTable);
+                // PROCESS STOCKS
+
+                var messagePrinter = new StockProcesser();
+
+                messagePrinter.WriteVisibleConsoleMessage("stock table");
+                messagePrinter.WriteVisibleConsoleMessage(numberOfRows);
+                messagePrinter.WriteVisibleConsoleMessage(numberOfColumns);
 
 
-                foreach (var stock in tempTable)
-                    Console.WriteLine( stock.Text );
-
+                // Initial print statement used to verify stocks
+                //messagePrinter.WriteVisibleConsoleMessage("temp table");
+                //foreach (var stock in tempTable)
+                //    Console.WriteLine( stock.Text );
 
 
                 //var manageStocks = new StockProcesser();
