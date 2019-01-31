@@ -87,20 +87,33 @@ namespace WebScraper
                 int numberOfColumns = firstRow.FindElements(By.TagName("td")).Count;
                 IList<IWebElement> currentRows = firstRow.FindElements(By.TagName("td"));
 
-
-                // PROCESS STOCKS
-
                 var messagePrinter = new StockProcesser();
 
                 messagePrinter.WriteVisibleConsoleMessage("stock table");
                 messagePrinter.WriteVisibleConsoleMessage(numberOfRows);
                 messagePrinter.WriteVisibleConsoleMessage(numberOfColumns);
 
+                // PROCESS STOCKS
 
-                // Initial print statement used to verify stocks
+                // XPath elements start at 1 index
+                Console.BackgroundColor = ConsoleColor.DarkRed;
+                for (int i = 1; i < numberOfRows; i++)
+                {
+                    messagePrinter.WriteVisibleConsoleMessage("new stock");
+                    // Last two columns are not needed, subtract 1
+                    for (int j = 1; j < numberOfColumns - 1; j++)
+                    {
+                        string currentText = webDriver.FindElement( By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[1]") ).Text;
+                        Console.WriteLine(currentText);
+                    }
+                }
+                Console.ResetColor();
+
+
+                //Initial print statement used to verify stocks
                 //messagePrinter.WriteVisibleConsoleMessage("temp table");
                 //foreach (var stock in tempTable)
-                //    Console.WriteLine( stock.Text );
+                //    Console.WriteLine(stock.Text);
 
 
                 //var manageStocks = new StockProcesser();
