@@ -103,7 +103,8 @@ namespace WebScraper
                     // Last two columns are not needed, subtract 1
                     for (int j = 1; j < numberOfColumns - 1; j++)
                     {
-                        string currentText = webDriver.FindElement( By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[1]") ).Text;
+                        //string currentText = webDriver.FindElement( By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[1]") ).Text;
+                        string currentText = webDriver.FindElement( By.XPath($"//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[{i}]/td[{j}]") ).Text;
                         Console.WriteLine(currentText);
                     }
                 }
