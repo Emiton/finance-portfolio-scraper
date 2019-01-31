@@ -7,6 +7,10 @@ using OpenQA.Selenium;
 
 namespace WebScraper
 {
+    /// <summary>
+    ///     This class will process stocks by taking a stockTable and turning
+    ///     each row into its own stockObject
+    /// </summary>
     class StockProcesser
     {
 

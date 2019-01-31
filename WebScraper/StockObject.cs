@@ -13,9 +13,12 @@ namespace WebScraper
     public class StockObject
     {
         public string Symbol { get; set; }
-        public double LastPrice { get; set; }
-        public double ValueChange { get; set; }
-        public double PercentChange { get; set; }
+        // TODO make double
+        public string LastPrice { get; set; }
+        // TODO make double
+        public string ValueChange { get; set; }
+        // TODO make double
+        public string PercentChange { get; set; }
         public string Currency { get; set; }
         // Time of the market at the time the data was collected
         public string MarketTime { get; set; }
