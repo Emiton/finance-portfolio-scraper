@@ -73,5 +73,55 @@ namespace WebScraper
             Console.WriteLine(symbolBuffer);
             Console.ResetColor();
         }
+
+        // TODO: May not need ref since modifying attribute not actual object
+        // ref keyword was used in function call
+        public void AddEntry(ref StockObject currentStock, string information, int columnId)
+        {
+            switch (columnId)
+            {
+                case 1:
+                    currentStock.Symbol = information;
+                    break;
+
+                case 2:
+                    currentStock.LastPrice = information;
+                    break;
+
+                case 3:
+                    currentStock.ValueChange = information;
+                    break;
+
+                case 4:
+                    currentStock.PercentChange = information;
+                    break;
+
+                case 5:
+                    currentStock.Currency = information;
+                    break;
+
+                case 6:
+                    currentStock.MarketTime = information;
+                    break;
+
+                case 7:
+                    currentStock.Volume = information;
+                    break;
+
+                case 9:
+                    currentStock.AverageVolume3M = information;
+                    break;
+
+                case 13:
+                    currentStock.Symbol = information;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        public List<StockObject> listOfStocks = new List<StockObject>();
+
     }
 }
