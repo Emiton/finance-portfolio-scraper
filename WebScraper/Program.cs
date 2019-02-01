@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using System.Data.Entity;
 
 namespace WebScraper
 {
@@ -22,6 +23,7 @@ namespace WebScraper
 
 
             // Create instance of web scraper
+            using (var db = new StockDatabase())
             using (IWebDriver webDriver = new ChromeDriver(options))
             {
                 // TODO: Suppress not working
@@ -118,6 +120,27 @@ namespace WebScraper
 
                 Console.ResetColor();
 
+
+                // Put stocks in database
+                foreach (var stock in stockProcessor.listOfStocks)
+                {
+                    db.StockObjects.Add(stock);
+                    db.SaveChanges();
+                }
+
+                // Get stocks from database and print
+                var query = from stock in db.StockObjects
+                    orderby stock.Symbol
+                    select stock;
+
+                messagePrinter.WriteVisibleConsoleMessage("all stock messages");
+
+                foreach (var stock in query)
+                {
+                    Console.WriteLine("SYMBOL " + stock.Symbol);
+                    Console.WriteLine("LAST PRICE " + stock.LastPrice);
+                    Console.WriteLine("AVERAGE VOLUME 3M " + stock.AverageVolume3M);
+                }
 
                 //Initial print statement used to verify stocks
                 //messagePrinter.WriteVisibleConsoleMessage("temp table");
