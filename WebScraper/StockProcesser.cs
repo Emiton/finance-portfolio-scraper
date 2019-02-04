@@ -113,7 +113,7 @@ namespace WebScraper
                     break;
 
                 case 13:
-                    currentStock.Symbol = information;
+                    currentStock.MarketCap = information;
                     break;
 
                 default:

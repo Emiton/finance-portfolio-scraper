@@ -8,6 +8,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System.Data.Entity;
+using System.Data.SqlClient;
 
 namespace WebScraper
 {
@@ -113,13 +114,25 @@ namespace WebScraper
                         //string currentText = webDriver.FindElement( By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[1]") ).Text;
                         string currentText = webDriver.FindElement( By.XPath($"//*[@id=\"pf-detail-table\"]/div[1]/table/tbody/tr[{i}]/td[{j}]") ).Text;
                         stockProcessor.AddEntry(ref tempStock, currentText, j);
-                        Console.WriteLine(currentText);
+                        Console.WriteLine($"{j} --> {currentText}");
                     }
 
                     stockProcessor.listOfStocks.Add(tempStock);
                 }
 
                 Console.ResetColor();
+
+                messagePrinter.WriteVisibleConsoleMessage("check stock objects");
+
+                foreach (var stock in stockProcessor.listOfStocks)
+                {
+                    Console.WriteLine(stock.Symbol);
+                    Console.WriteLine(stock.LastPrice);
+                    Console.WriteLine(stock.PercentChange);
+                    Console.WriteLine(stock.Currency);
+                    Console.WriteLine(stock.MarketTime);
+                    Console.WriteLine(stock.MarketCap);
+                }
 
 
                 // Put stocks in database

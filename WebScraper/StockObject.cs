@@ -15,7 +15,7 @@ namespace WebScraper
     public class StockObject
     {
         [Key]
-        [Column(Order =1)]
+        [Column(Order = 1)]
         public string Symbol { get; set; }
         // TODO make double
         public string LastPrice { get; set; }
