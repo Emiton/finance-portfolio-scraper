@@ -9,6 +9,9 @@ namespace WebScraper
 {
     public class StockDatabase : DbContext
     {
+        public StockDatabase() : base("StockDatabase")
+        {
+        }
         public DbSet<StockObject> StockObjects { get; set; }
     }
 }

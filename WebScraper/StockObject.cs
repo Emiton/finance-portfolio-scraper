@@ -1,6 +1,8 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,8 @@ namespace WebScraper
     /// </summary>
     public class StockObject
     {
+        [Key]
+        [Column(Order =1)]
         public string Symbol { get; set; }
         // TODO make double
         public string LastPrice { get; set; }
@@ -27,6 +31,8 @@ namespace WebScraper
         public string AverageVolume3M { get; set; }
         public string MarketCap { get; set; }
         // Time at which the stock was scraped
-        public DateTime ScrapeTime { get; set; }
+        [Key]
+        [Column(Order = 2)]
+        public string ScrapeTime { get; set; }
     }
 }

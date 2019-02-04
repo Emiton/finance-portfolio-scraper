@@ -104,6 +104,7 @@ namespace WebScraper
                 for (int i = 1; i < numberOfRows; i++)
                 {
                     var tempStock = new StockObject();
+                    tempStock.ScrapeTime = DateTime.Now.ToString("G");
 
                     messagePrinter.WriteVisibleConsoleMessage("new stock");
                     // Last two columns are not needed, subtract 1
