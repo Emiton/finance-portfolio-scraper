@@ -1,0 +1,31 @@
+﻿Clean up
+	Place all code into OO components and clean up main function
+		Might need to research best practices
+	Personal information should be set using environment variables
+	Properly comment, use auto-generated comments
+	Think about making code more PRETTY
+	Surpress SSL warnings
+
+Think about purpose of app
+	Send daily alerts
+	Choose time alerts are sent
+	Choose frequency
+	Special condtion alerts, such as huge gain, huge loss, etc.
+	At what times will it scrape?
+	How to host app? DO?
+
+Testing
+	Write some unit tests for the app
+	Make sure to create class/methods that are testable
+
+Running the app
+	Add email functionailty
+		How to send beautiful emails
+	Add text functionality
+
+Front End
+	Look into C# React framework
+
+Resources
+	How to set up DB connection to SQL server
+		http://csharp.tips/tip/article/976-Entity-Framework-6-SQL-Server-Connection-String

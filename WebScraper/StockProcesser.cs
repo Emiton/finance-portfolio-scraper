@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 
 namespace WebScraper
 {
@@ -14,6 +15,7 @@ namespace WebScraper
     class StockProcesser
     {
 
+
         // PROCESSES NEEDED
         // Get table
         // Get row
@@ -21,8 +23,12 @@ namespace WebScraper
         // Store in StockObject
         // Send to database
 
+
+
         public IWebElement GetStockTable(IWebDriver driver)
         {
+
+
             IWebElement stockTable = driver.FindElement(By.XPath("//*[@id=\"pf-detail-table\"]/div[1]/table/tbody"));
             return stockTable;
         }
