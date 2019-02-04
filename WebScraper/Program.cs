@@ -14,8 +14,9 @@ namespace WebScraper
 {
     class Program
     {
+
         /// <summary>
-        /// Entry point for the scraper.
+        ///     Entry point for the scraper.
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args)
@@ -29,8 +30,8 @@ namespace WebScraper
             {
                 // TODO: Suppress not working
                 // Suppress certificate errors
-               options.AddArgument("--ignore-certificate-errors");
-               options.AddArgument("--ignore-ssl-errors");
+               //options.AddArgument("--ignore-certificate-errors");
+               //options.AddArgument("--ignore-ssl-errors");
                webDriver.Navigate().GoToUrl("https://finance.yahoo.com");
 
                 // define an explicit wait
@@ -155,47 +156,7 @@ namespace WebScraper
                     Console.WriteLine("LAST PRICE " + stock.LastPrice);
                     Console.WriteLine("AVERAGE VOLUME 3M " + stock.AverageVolume3M);
                 }
-
-                //Initial print statement used to verify stocks
-                //messagePrinter.WriteVisibleConsoleMessage("temp table");
-                //foreach (var stock in tempTable)
-                //    Console.WriteLine(stock.Text);
-
-
-                //var manageStocks = new StockProcesser();
-                //manageStocks.ParseStockTable(stockTable);
-
-                // Next steps 
-                // Loop through each row
-                // Final should use a method that gets row?
-                // For each column use special instructions to extract relevant data
-                // This may require a switch statement in order to accomadate for sepcial case rows
-
-
-                // TODO: ****Next steps****
-                // Create a stock object that will be sent to database
-                // Rewrite function to access stock data
-                // Manipulate stock objects somehow (by printing or whatever)
-                // Create database connection
-                // Break up code into methods
-
-
-                // Might need this a popup handler
-                //var alert = webDriver.FindElement(By.XPath("//dialog[@id = '__dialog']/section/button"));
-                //alert.Click();
-
             }
-
-
         }
-
-        //public List<StockObject> ParseStockTable(IList<IWebElement> stocks)
-        //{
-        //    List<StockObject> parsedStocks = new List<StockObject>();
-        //    int numberOfStocks = stocks.Count;
-        //    Console.WriteLine(  numberOfStocks );
-        //    return parsedStocks;
-        //}
-
     }
 }
