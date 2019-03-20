@@ -17,11 +17,8 @@ namespace WebScraper
         [Key]
         [Column(Order = 1)]
         public string Symbol { get; set; }
-        // TODO make double
         public string LastPrice { get; set; }
-        // TODO make double
         public string ValueChange { get; set; }
-        // TODO make double
         public string PercentChange { get; set; }
         public string Currency { get; set; }
         // Time of the market at the time the data was collected
