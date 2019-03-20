@@ -35,7 +35,7 @@ namespace WebScraper
                webDriver.Navigate().GoToUrl("https://finance.yahoo.com");
 
                 // define an explicit wait
-                WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+                WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(30));
 
                 // SIGN IN PROCESS
                 wait.Until<IWebElement>(d => d.FindElement(By.Id("uh-signedin")));
